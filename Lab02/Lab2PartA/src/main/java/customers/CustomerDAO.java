@@ -1,13 +1,19 @@
 package customers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CustomerDAO implements ICustomerDAO {
-	@Autowired
+@Profile("Prod")
+public class CustomerDAO implements ICustomerDAO{
 	private ILogger logger;
-
+	
+	@Autowired
+	public CustomerDAO(ILogger logger) {
+		this.logger = logger;
+	}
+	
 	public void save(Customer customer) {
 		// simple sleep
 		try {
@@ -15,7 +21,7 @@ public class CustomerDAO implements ICustomerDAO {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("CustomerDAO: saving customer " + customer.getName());
-		logger.log("Customer is saved in the DB: " + customer.getName());
+		System.out.println("CustomerDAO: saving customer "+customer.getName());
+		logger.log("Customer is saved in the DB: "+ customer.getName() );
 	}
 }
