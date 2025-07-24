@@ -46,7 +46,6 @@ public class Application implements CommandLineRunner {
 		productDAO.save(product2);
 		System.out.println(productDAO.findByProductNumber(201));
 		System.out.println(productDAO.removeProduct(201));
-//		System.out.println(productDAO.getAllProducts());
 		System.out.println(productDAO.findByProductName("Success"));
 	}
 }
