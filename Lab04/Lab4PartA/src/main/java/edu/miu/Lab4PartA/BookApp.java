@@ -2,10 +2,8 @@ package edu.miu.Lab4PartA;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+
 public class BookApp implements CommandLineRunner {
 
     @Autowired
@@ -14,9 +12,9 @@ public class BookApp implements CommandLineRunner {
     @Autowired
     BookRepository bookRepository;
 
-    public static void main(String[] args){
-        SpringApplication.run(BookApp.class, args);
-    }
+//    public static void main(String[] args){
+//        SpringApplication.run(BookApp.class, args);
+//    }
 
     @Override
     public void run(String... args) throws Exception {
