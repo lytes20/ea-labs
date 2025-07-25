@@ -28,7 +28,6 @@ public class School {
     }
 
 
-
     public void setStudents(Map<Long, Student> students) {
         this.students = students;
     }
