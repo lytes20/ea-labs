@@ -20,13 +20,14 @@ public class Main implements CommandLineRunner {
 
         RestClient restClient = RestClient.builder().baseUrl("http://localhost:8080/books").build();
 
+        Book book = new Book("1000010", "Mohammed", "Java for Dummies", 50.00);
 //         Add book
-         Book newBook = restClient.post().uri("")
-         .contentType(MediaType.APPLICATION_JSON)
-         .body(new Book("1000001", "Gideon", "Advanced Java", 50.00))
-         .retrieve()
-         .body(Book.class);
-         System.out.println(newBook);
+//         Book newBook = restClient.post().uri("")
+//         .contentType(MediaType.APPLICATION_JSON)
+//         .body()
+//         .retrieve()
+//         .body(Book.class);
+//         System.out.println(newBook);
 
         BooksResponse booksResponse = restClient.get()
                 .uri("")
@@ -34,7 +35,51 @@ public class Main implements CommandLineRunner {
                 .body(BooksResponse.class);
         System.out.println(booksResponse.getBooks());
 
+        Book lastBook =  restClient.get()
+                .uri("/{isbn}", "1000010")
+                .retrieve()
+                .body(Book.class);
+        System.out.println(lastBook);
 
+        // Updating a book
+        book.setAuthor("Moges");
+        restClient.put()
+                .uri("/{isbn}", "1000010")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(book)
+                .retrieve()
+                .body(Book.class);
+
+        // Fetch the updated book
+        Book updatedBook =  restClient.get()
+                .uri("/{isbn}", "1000010")
+                .retrieve()
+                .body(Book.class);
+        System.out.println(updatedBook);
+
+        // Search for a book by author
+        BooksResponse booksByAuthor =  restClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/search")
+                        .queryParam("author", "Moges")
+                        .build()
+                )
+                .retrieve()
+                .body(BooksResponse.class);
+        System.out.println(booksByAuthor);
+
+
+        restClient.delete()
+                .uri("/{isbn}", "1000010")
+                .retrieve()
+                .toBodilessEntity();
+
+        // Fetch the updated book
+        Book deletedBook =  restClient.get()
+                .uri("/{isbn}", "1000010")
+                .retrieve()
+                .body(Book.class);
+        System.out.println(deletedBook);
 
     }
 }
