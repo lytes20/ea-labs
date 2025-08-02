@@ -21,13 +21,14 @@ public class Main implements CommandLineRunner {
         RestClient restClient = RestClient.builder().baseUrl("http://localhost:8080/books").build();
 
         Book book = new Book("1000010", "Mohammed", "Java for Dummies", 50.00);
+        Book book1 = new Book("1000000", "Gideon", "Advanced Java", 50.00);
 //         Add book
-//         Book newBook = restClient.post().uri("")
-//         .contentType(MediaType.APPLICATION_JSON)
-//         .body()
-//         .retrieve()
-//         .body(Book.class);
-//         System.out.println(newBook);
+         Book newBook = restClient.post().uri("")
+         .contentType(MediaType.APPLICATION_JSON)
+         .body(book)
+         .retrieve()
+         .body(Book.class);
+         System.out.println(newBook);
 
         BooksResponse booksResponse = restClient.get()
                 .uri("")
@@ -69,17 +70,17 @@ public class Main implements CommandLineRunner {
         System.out.println(booksByAuthor);
 
 
-        restClient.delete()
-                .uri("/{isbn}", "1000010")
-                .retrieve()
-                .toBodilessEntity();
+//        restClient.delete()
+//                .uri("/{isbn}", "1000010")
+//                .retrieve()
+//                .toBodilessEntity();
 
         // Fetch the updated book
-        Book deletedBook =  restClient.get()
-                .uri("/{isbn}", "1000010")
-                .retrieve()
-                .body(Book.class);
-        System.out.println(deletedBook);
+//        Book deletedBook =  restClient.get()
+//                .uri("/{isbn}", "1000010")
+//                .retrieve()
+//                .body(Book.class);
+//        System.out.println(deletedBook);
 
     }
 }
