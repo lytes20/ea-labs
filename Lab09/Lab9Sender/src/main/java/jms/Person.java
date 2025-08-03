@@ -1,6 +1,5 @@
 package jms;
 
-
 public class Person {
 
 	private String firstName;
